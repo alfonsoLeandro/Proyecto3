@@ -1,0 +1,1 @@
+Letra del proyecto: https://webasignatura.ucu.edu.uy/pluginfile.php/794522/mod_resource/content/1/Tarea_Lights_Out___%C3%81lgebra_aplicada_.pdf
