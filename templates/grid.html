@@ -1,13 +1,10 @@
 {% for i in range(n) %}
-        {% for j in range(n) %}
-        <div
-                hx-get="/toggle/{{ i }}/{{ j }}"
-                hx-target="#grid"
-                hx-swap="innerHtml"
-                class="w-16 h-16 border-2 border-gray-600 flex items-center justify-center cursor-pointer"
-                style="background-color: {{ 'black' if grid[i * n + j] == 1 else 'white' }};">
-            <div class="w-10 h-10 rounded-full"
-                 style="background-color: {{ 'yellow' if grid[i * n + j] == 1 else 'gray' }};"></div>
-        </div>
-        {% endfor %}
+{% for j in range(n) %}
+<button hx-get="/toggle/{{ i }}/{{ j }}" hx-target="#grid" hx-swap="innerHtml"
+	class="w-16 h-16 border-2 border-gray-600 flex items-center justify-center cursor-pointer"
+	style="background-color: {{ 'black' if grid[i * n + j] == 1 else 'white' }};">
+	<div class="w-10 h-10 rounded-full" style="background-color: {{ '#ff5d62' if grid[i * n + j] == 1 else 'gray' }};">
+	</div>
+</button>
+{% endfor %}
 {% endfor %}
