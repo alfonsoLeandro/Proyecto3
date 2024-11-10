@@ -9,15 +9,17 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 font-sans flex items-center justify-center h-screen">
+<body class="bg-gray-100 font-sans flex items-center justify-center h-screen flex-col">
 	<div class="text-center">
 		<h1 class="text-4xl font-bold mb-4">Lights Out Game</h1>
 
 		<!-- The grid container -->
-		<div id="grid" class="grid grid-cols-3 gap-2">
+		<div id="grid" class="grid grid-cols-3 gap-2 place-items-center">
 			{% for i in range(n) %}
 			{% for j in range(n) %}
-			<div hx-get="/toggle/{{ i }}/{{ j }}" hx-target="#grid" hx-swap="innerHtml"
+			<div hx-get="/toggle/{{ i }}/{{ j }}"
+                 hx-target="#grid"
+                 hx-swap="innerHtml"
 				class="w-16 h-16 border-2 border-gray-600 flex items-center justify-center cursor-pointer"
 				style="background-color: {{ 'black' if grid[i * n + j] == 1 else 'white' }};">
 				<div class="w-10 h-10 rounded-full"
@@ -26,13 +28,13 @@
 			{% endfor %}
 			{% endfor %}
 		</div>
-		<div class="m-10 flex flex-col">
+		<div class="mt-10 flex flex-col">
 			<button
 				class="bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
 				hx-get="/solucion" hx-target="#solucion" hx-swap="innerHTML">Ver solucion</button>
-			<span id="solucion"></span>
 		</div>
-	</div>
+    </div>
+    <span id="solucion"></span>
 
 </body>
 
