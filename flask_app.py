@@ -1,5 +1,5 @@
 import numpy as np
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template
 from flask_cors import CORS
 
 from main import obtener_solucion
@@ -27,7 +27,22 @@ def toggle(i, j):
 
 @app.route("/solucion")
 def mostrar_solucion():
-    return jsonify(obtener_solucion(matriz_actual))
+    grid_solucion = obtener_solucion(matriz_actual)
+    luces = [i + 1 for i, estado in enumerate(grid_solucion) if estado == 1]
+
+    if not luces:
+        return "¡Ya lograste llegar a la solución!"
+    else:
+        # Construye la cadena de las posiciones de las luces
+        solucion = "Debes togglear las luces en las posiciones: "
+        solucion += ", ".join(map(str, luces[:-1]))
+        if len(luces) > 1:
+            solucion += f" y {luces[-1]}"
+        else:
+            solucion += str(luces[0])
+
+        return solucion
+
 
 
 # Convert a 2D grid into a 1D array for the HTML rendering
@@ -38,7 +53,6 @@ def grid_to_array(grid):
 # Update the grid when a button is pressed
 def toggle_lights(grid, i, j):
     n = grid.shape[0]
-    print('hijota', i,j)
     # List of neighbors (including itself)
     neighbors = [
         (i, j),  # itself
@@ -47,11 +61,10 @@ def toggle_lights(grid, i, j):
         (i, j - 1) if j > 0 else None,  # left
         (i, j + 1) if j < n - 1 else None  # right
     ]
-    print('vecinos', neighbors)
 
     for vecino in neighbors:
         if vecino is not None:
-            grid[vecino[0], vecino[1]] = 1 - grid[vecino[0], vecino[1]]  # Toggle the light
+            grid[vecino[0], vecino[1]] = 1 - grid[vecino[0], vecino[1]]
     return grid
 
 def run_app():
