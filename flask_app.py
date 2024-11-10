@@ -42,6 +42,13 @@ def mostrar_solucion():
             solucion += str(luces[0])
 
         return solucion
+@app.route("/refresh")
+def refresh():
+    global matriz_actual
+    matriz_actual = np.random.randint(0, 2, size=(size, size))
+    grid_array = grid_to_array(matriz_actual)
+    return render_template('grid.html', grid=grid_array, n=len(matriz_actual))
+
 
 
 
