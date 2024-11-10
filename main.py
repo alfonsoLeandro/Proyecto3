@@ -1,5 +1,8 @@
 import numpy as np
+
 import escalerizacion_gaussiana
+import flask_app
+
 matriz_inicial = np.array([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
@@ -12,6 +15,7 @@ matriz_inicial = np.array([
     [0, 1, 1, 1, 1, 0, 0, 1, 1, 1],
     [0, 0, 1, 1, 0, 0, 0, 1, 1, 1]
 ])
+
 def aplanar_matriz(matriz):
     # Evitando problemas
     if matriz.shape[0] != matriz.shape[1]:
@@ -53,6 +57,15 @@ def generar_matriz_ecuaciones(n):
     return A
 
 
+def obtener_solucion(matriz):
+    n = matriz.shape[0]
+    sistema_ecuaciones = generar_matriz_ecuaciones(n)
+
+    aplanada = aplanar_matriz(matriz)
+
+    solucion = escalerizacion_gaussiana.gauss_elimination_mod2(sistema_ecuaciones, aplanada)
+    return solucion
+
 
 if __name__ == '__main__':
     # 1- definir matriz de un juego
@@ -68,4 +81,4 @@ if __name__ == '__main__':
 
     solucion = escalerizacion_gaussiana.gauss_elimination_mod2(sistema_ecuaciones, aplanada)
     print('solucion', solucion)
-    app.run()
+    flask_app.run_app()
